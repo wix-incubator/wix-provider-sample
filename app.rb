@@ -57,8 +57,19 @@ end
 get '/shop.html' do
   content_type :html
   erb "#{displayParams('shop')}
-      <div><img src=\"<%=params['img']%>\" height=\"100px\"></div>
-      <div><a href=\"/payment_success.html?p_instance=<%=params['p_instance'] %>&galleryId=<%=params['galleryId'] %>&itemId=<%=params['itemId'] %>&purchaseNotify=<%=params['purchaseNotify'] %>\" target=\"_blank\">Simulate payment complete</a></div>"
+      <div><img id=\"img-holder\" src=\"<%=params['img']%>\" height=\"100px\"></div>
+      <div>Message received from gallery:</div>
+      <pre id=\"message-received\"></pre>
+      <script>
+        window.addEventListener('message', function(e) {
+          if (e.data && e.data['itemId'] && e.data['img']) {
+            document.getElementById('img-holder').src=e.data['img'];
+            document.getElementById('message-received').innerHTML=JSON.stringify(e.data, null, 2);
+          }
+        }, false);
+      </script>
+      <div><a href=\"/payment_success.html?p_instance=<%=params['p_instance'] %>&galleryId=<%=params['galleryId'] %>&itemId=<%=params['itemId'] %>&purchaseNotify=<%=params['purchaseNotify'] %>\" target=\"_blank\">Simulate payment complete</a></div>
+"
 end
 
 get '/banner.html' do
