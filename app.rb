@@ -18,8 +18,16 @@ configure do
   #     secret: '*&(^QQWW'
   set :inline_templates, true
   set :protection, :except => :frame_options
+end
+
+configure :development do
   set :appDefId => '142e50c2-1d37-9c1d-812c-198426f8b757'
   set :appSecret => '9183fd33-76ef-4562-aef7-79d925136a0f'
+end
+
+configure :production do
+  set :appDefId => '1430ec4e-bddf-8f9a-dee4-41cac6ef7cfa'
+  set :appSecret => '7123eb4d-3124-4699-9d73-db8cf487eec2'
 end
 
 
